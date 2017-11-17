@@ -55,7 +55,7 @@ class QuestionType
     }
     
     function create($connectionId){
-        $affectedRows = $connectinoId->exec("insert into questionType (pk_questionType_id,questionType_name) values
+        $affectedRows = $connectionId->exec("insert into questionType (pk_questionType_id,questionType_name) values
         ('','$this->name')");
         return $connectionId->lastInsertId();
     }

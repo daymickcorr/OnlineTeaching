@@ -83,12 +83,12 @@ class Subject
     }
     
     function updateCourseId($connectionId){
-        $affectedRows = $connectionId->exec("update subject set fk_course_id = $this->courseId where pk_course_id = $this->id");
+        $affectedRows = $connectionId->exec("update subject set fk_course_id = $this->courseId where pk_subject_id = $this->id");
         return $affectedRows;
     }
     
     function delete($connectionId){
-        $affectedRows = $connectionId->exec("delete from subject where pk_suject_id = $this->id");
+        $affectedRows = $connectionId->exec("delete from subject where pk_subject_id = $this->id");
         return $affectedRows;
     }
     

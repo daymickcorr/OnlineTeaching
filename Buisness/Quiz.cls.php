@@ -74,7 +74,7 @@ class Quiz
     
     function create($connectionId){
         $affectedRows = $connectionId->exec("insert into quiz (pk_quiz_id,quiz_name,quiz_total) values ('','$this->name',$this->total)");
-        return $affectedRows;
+        return $connectionId->lastInsertId();
     }
     
     function updateName($connectionId){

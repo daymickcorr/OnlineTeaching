@@ -50,7 +50,7 @@ class MemberType
         return "</table>";
     }
     
-    static function __toString(){
+    function __toString(){
         return "<tr><td>$this->id</td><td>$this->name</td></tr>";
     }
     

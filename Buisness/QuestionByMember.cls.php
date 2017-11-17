@@ -97,12 +97,12 @@ class QuestionByMember
     }
     
     function updateAnswer($connectionId){
-        $affectedRows = $connectionId->exec("update questionByMember set questionByMember_answer = '$this->answer' where pk_questionByMember = $this->id");
+        $affectedRows = $connectionId->exec("update questionByMember set questionByMember_answer = '$this->answer' where pk_questionByMember_id = $this->id");
         return $affectedRows;
     }
     
     function updateMemberId($connectionId){
-        $affectedRows = $connectionId->exec("update questionByMember set fk_member_id = $this->memberId where pk_questionByMember_Id = $this->id");
+        $affectedRows = $connectionId->exec("update questionByMember set fk_member_id = $this->memberId where pk_questionByMember_id = $this->id");
         return $affectedRows;
     }
     

@@ -99,7 +99,7 @@ class SubCategory
             $subCategory = new SubCategory();
             $subCategory->setId($row["pk_subCategory_id"]);
             $subCategory->setName($row["subCategory_name"]);
-            $subCategory->setCategoryId($row["fk_Category_id"]);
+            $subCategory->setCategoryId($row["fk_category_id"]);
             $arr[$idx++] = $subCategory;
         }
         return $arr;
