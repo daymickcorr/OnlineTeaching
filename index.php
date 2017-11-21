@@ -34,12 +34,12 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="nav-item">
 						<div class="input-group">
-							<input class="form-control" type="text" placeholder="Search">
+							<input class="form-control" type="search" placeholder="Search">
 							<span class="input-group-addon"><i class="fa fa-search"></i></span>
 						</div>
 					</li>
 					<li class="nav-item"><a class="nav-link" data-toggle="modal" href="#loginModal"><span class="fa fa-sign-in"></span> Login</a></li>
-      				<li class="nav-item"><a class="nav-link" data-toggle="modal" href="#singUpModal"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+      				<li class="nav-item"><a class="nav-link" href="singUp.php"><span class="fa fa-user-plus"></span> Sign Up</a></li>
     			</ul>		
 			</div>
 		</nav>
@@ -58,16 +58,27 @@
 					</div>
 					
 					<div class="modal-body">
-        				Modal body..
+        				<div class="form-group">
+        					<label>Username:</label>
+        					<input type="text" class="form-control" id="username" placeholder="Enter username" name="username">
+        				</div>
+        				<div class="form-group">
+        					<label>Password:</label>
+        					<input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+        				</div>
       				</div>
 					
 					<div class="modal-footer">
-        				<button type="button" class="btn btn-primary" data-dismiss="modal">Login</button>
+						<div class="w-100 text-center">
+        					<button type="button" class="btn btn-primary"  data-dismiss="modal">Login</button>
+        				</div>
       				</div>
       				
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	
 </body>
 </html>
