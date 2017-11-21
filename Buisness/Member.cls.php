@@ -213,7 +213,9 @@ class Member
     function authentificate($connectionId){
         $password = md5($this->password);
         $id = -1;
-        $id = $connectionId->query("select pk_member_id from member where member_userName = '$this->userName' and member_password = '$password' ");
+        foreach ($connectionId->query("select pk_member_id from member where member_userName = '$this->userName' and member_password = '$password' ") as $row){
+            $id = $row["pk_member_id"];
+        }
         return $id;
     }
 }

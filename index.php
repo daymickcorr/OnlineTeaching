@@ -8,13 +8,80 @@
     <title>Online Teaching</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    
-	
-    
     <script src="Dependencies/jquery-3.2.1.min.js"></script>
+    
     <script src="Dependencies/bootstrap-4.0.0/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="Dependencies/bootstrap-4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="Dependencies/font-awesome-4.7.0/css/font-awesome.min.css">
+   
+	<style>
+        .required {
+            border: 2px solid red;
+        }
+        .visible{
+           visibility: visible;
+        }
+    </style>
+    
+    <script>
+    	var xhr = new XMLHttpRequest();
+		
+    	function authentificate(){
+    		var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+
+			if(!validateAuthentification(username,password)){return;}
+			
+			$("#modalLogin").addClass('disabled');
+			$("#modalLogin").html("<i class='fa fa-circle-o-notch fa-spin'></i> Loading")
+
+			xhr.onreadystatechange = doAuthentification;
+
+			xhr.open("post","authentificate.php",true);
+			
+			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+			xhr.send("username="+username+"&password="+password);
+        }
+
+        function doAuthentification(){
+            //alert(xhr.readyState + "-" + xhr.status);
+			if(xhr.readyState==4 && xhr.status==200){
+				
+				result = xhr.responseText;
+				if (result < 0){
+					//alert(result);
+					$("#credentialMessage").addClass('visible');
+					document.getElementById("password").value = "";
+				}
+				else {
+					//alert(result);
+					$("#credentialMessage").removeClass('visible');
+				}
+				$("#modalLogin").html("Login");
+				$("#modalLogin").removeClass('disabled');
+			}
+        }
+
+        function validateAuthentification(username,password){
+			flag = true;
+			$("#username").removeClass('required');
+			$("#password").removeClass('required');
+			
+        	if(username == ""){
+				$("#username").addClass('required');
+				flag = false;
+			}
+
+			if(password == ""){
+				$("#password").addClass('required');
+				flag = false;	
+			}
+
+			return flag;
+        }
+        
+    </script>
     
 </head>
 <body>
@@ -70,7 +137,8 @@
 					
 					<div class="modal-footer">
 						<div class="w-100 text-center">
-        					<button type="button" class="btn btn-primary"  data-dismiss="modal">Login</button>
+							<p style="color: red; visibility: hidden;" id="credentialMessage">Invalid Credentials</p>
+        					<button type="button" class="btn btn-primary" id="modalLogin" onclick="authentificate()">Login</button>
         				</div>
       				</div>
       				
