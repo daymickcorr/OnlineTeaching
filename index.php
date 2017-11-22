@@ -57,6 +57,9 @@
 				else {
 					//alert(result);
 					$("#credentialMessage").removeClass('visible');
+					$("#modalLogin").html("Login");
+					$("#modalLogin").removeClass('disabled');
+					$(".modal .close").click()
 				}
 				$("#modalLogin").html("Login");
 				$("#modalLogin").removeClass('disabled');
