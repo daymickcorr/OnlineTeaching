@@ -50,6 +50,8 @@
 		if($("#create").val() == ""){
 			$("#student").addClass('required');
 			$("#teacher").addClass('required');
+			//$(".btn-group").addClass('required');
+			$("#student").focus();
 			return false;
 		}
 
