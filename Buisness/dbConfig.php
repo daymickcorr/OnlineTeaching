@@ -5,7 +5,7 @@ $username = "root";
 $password = "";
 $dbName = "onlineteaching";
 try{
-    $connectionId = new PDO("mysql:host=$host;dbname=$dbName",$username,$password);
+    $connectionId = new PDO("mysql:host=$host;dbname=$dbName;charset=utf8",$username,$password);
     //echo "connected";
 }
 catch(PDOException $ex){

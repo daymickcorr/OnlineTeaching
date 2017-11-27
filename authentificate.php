@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once 'Buisness/dbConfig.php';
     require_once 'Buisness/Member.cls.php';
     
@@ -11,4 +12,6 @@
     
     echo strval($id);
     
+    $_SESSION["id"] = $id;
 ?>
+	

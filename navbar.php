@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +17,9 @@
         }
         .visible{
            visibility: visible;
+        }
+        .nodisplay{
+        	display: none;
         }
     </style>
     
@@ -54,14 +56,24 @@
 				}
 				else {
 					//alert(result);
+					//succesfully logged in 
 					$("#credentialMessage").removeClass('visible');
 					$("#modalLogin").html("Login");
+					
+					$(".before-login").addClass('nodisplay');
+					$(".after-login").removeClass('nodisplay');
+					
 					$("#modalLogin").removeClass('disabled');
 					$(".modal .close").click()
+					
+					//$.get("sessionWrite.php?id="+result);
+					//var msg = $.ajax({type: "GET", url: "sessionRead.php", async: false}).responseText;
+					//alert(msg);
 				}
 				$("#modalLogin").html("Login");
 				$("#modalLogin").removeClass('disabled');
 			}
+			
         }
 
         function validateAuthentification(username,password){
@@ -82,10 +94,25 @@
 			return flag;
         }
         
+        function disconnect(){
+        	$(".before-login").removeClass('nodisplay');
+			$(".after-login").addClass('nodisplay');
+			window.location.replace("index.php");
+			$.get("disconnect.php");
+        }
+
+        function ifLoggedIn(){
+            var id = $.ajax({type: "GET", url: "sessionRead.php", async: false}).responseText;
+			//alert(id);
+            if( id > 0){
+            	$(".before-login").addClass('nodisplay');
+				$(".after-login").removeClass('nodisplay');
+            }
+        }
     </script>
     
 </head>
-<body>
+<body onload="ifLoggedIn()">
 
 <!-- Navbar -->
 
@@ -93,7 +120,7 @@
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="index.php">
 						<img src="Dependencies/Images/OnlineTeaching_Logo.svg" alt="OnlineTeaching_Logo"/>
 						<span>Online Teaching</span>
 					</a>
@@ -106,8 +133,17 @@
 							<span class="input-group-addon"><i class="fa fa-search"></i></span>
 						</div>
 					</li>
-					<li class="nav-item"><a class="nav-link" data-toggle="modal" href="#loginModal"><span class="fa fa-sign-in"></span> Login</a></li>
-      				<li class="nav-item"><a class="nav-link" href="signUp.php"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+					<li class="nav-item before-login"><a class="nav-link" data-toggle="modal" href="#loginModal"><span class="fa fa-sign-in"></span> Login</a></li>
+      				<li class="nav-item before-login"><a class="nav-link" href="signUp.php"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+      				<li class="dropdown after-login nodisplay">
+      					<a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-user-circle fa-lg"></i> Profile</a>
+      					<ul class="dropdown-menu">
+      						<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
+      						<li><a href="createCourse.php"><i class="fa fa-pencil"></i> Create Course</a></li>
+      						<li class="dropdown-divider"></li>
+      						<li><a href="#" onclick="disconnect()"><i class="fa fa-power-off"></i> Disconnect</a></li>
+      					</ul>
+      				</li>
     			</ul>		
 			</div>
 		</nav>
