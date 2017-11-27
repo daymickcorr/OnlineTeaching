@@ -1,4 +1,6 @@
-<?php include "navbar.php"; ?>
+<?php 
+session_start();
+include "navbar.php"; ?>
 <?php 
     require_once 'Buisness/dbConfig.php';
     require_once 'Buisness/Subject.cls.php';
@@ -25,8 +27,10 @@
 						   $courses = $course->findAll($connectionId);
 						   
 						   foreach($courses as $element){
-						       if ($element->get)
-					           echo "<option value='".$element->getId()."'>".$element->getName()."</option>";
+						       //echo $_SESSION['id'];
+						       if ($element->getMemberId() == $_SESSION["id"]){
+					               echo "<option value='".$element->getId()."'>".$element->getName()."</option>";
+						       }
                            }
 					    ?>
 					</select>
