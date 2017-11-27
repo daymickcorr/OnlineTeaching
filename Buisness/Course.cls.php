@@ -6,7 +6,24 @@ class Course
     private $name;
     private $languageId;
     private $subCategoryId;
+    private $memberId;
     
+    /**
+     * @return the $memberId
+     */
+    public function getMemberId()
+    {
+        return $this->memberId;
+    }
+
+    /**
+     * @param field_type $memberId
+     */
+    public function setMemberId($memberId)
+    {
+        $this->memberId = $memberId;
+    }
+
     /**
      * @return the $id
      */
@@ -71,15 +88,16 @@ class Course
         $this->subCategoryId = $subCategoryId;
     }
 
-    function __construct($id = NULL, $name = NULL, $languageId = NULL, $subCategoryId = NULL){
+    function __construct($id = NULL, $name = NULL, $languageId = NULL, $subCategoryId = NULL , $memberId = NULL){
         $this->id = $id;
         $this->name = $name;
         $this->languageId = $languageId;
         $this->subCategoryId = $subCategoryId;
+        $this->memberId = $memberId;
     }
     
     static function header(){
-        return "<table><tr><th>Id</th><th>Name</th><th>Language Id</th><th>Sub Category Id</th></tr>";
+        return "<table><tr><th>Id</th><th>Name</th><th>Language Id</th><th>Sub Category Id</th><th>Member Id</th></tr>";
     }
     
     static function footer(){
@@ -87,12 +105,12 @@ class Course
     }
         
     function __toString(){
-        return "<tr><td>$this->id</td><td>$this->name</td><td>$this->languageId</td><td>$this->subCategoryId</td></tr>";   
+        return "<tr><td>$this->id</td><td>$this->name</td><td>$this->languageId</td><td>$this->subCategoryId</td><td>$this->memberId</td></tr>";   
     }
     
     function create($connectionId){
-        $affectedRows = $connectionId->exec("insert into course (pk_course_id,course_name,fk_language_id,fk_subCategory_id) 
-        values ('','$this->name',$this->languageId,$this->subCategoryId)");
+        $affectedRows = $connectionId->exec("insert into course (pk_course_id,course_name,fk_language_id,fk_subCategory_id,fk_member_id) 
+        values ('','$this->name',$this->languageId,$this->subCategoryId,$this->memberId)");
         return $connectionId->lastInsertId();
     }
     
@@ -111,6 +129,11 @@ class Course
         return $affectedRows;
     }
     
+    function updateMemberId($connectionId){
+        $affectedRows = $connectionId->exec("update course set fk_member_id = $this->memberId where pk_course_id = $this->id");
+        return $affectedRows;
+    }
+    
     function delete($connectionId){
         $affectedRows = $connectionId->exec("delete from course where pk_course_id = $this->id");
         return $affectedRows;
@@ -124,6 +147,7 @@ class Course
             $course->setName($row["course_name"]);
             $course->setLanguageId($row["fk_language_id"]);
             $course->setSubCategoryId($row["fk_subCategory_id"]);
+            $course->setMemberId($row["fk_member_id"]);
             $arr[$idx++]= $course; 
         }
             return $arr;
@@ -137,6 +161,7 @@ class Course
             $course->setName($row["course_name"]);
             $course->setLanguageId($row["fk_language_id"]);
             $course->setSubCategoryId($row["fk_subCategory_id"]);
+            $course->setMemberId($row["fk_member_id"]);
             $arr[$idx++]= $course;
         }
         return $arr;

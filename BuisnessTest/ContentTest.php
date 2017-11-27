@@ -14,7 +14,6 @@ echo Content::footer();
 
 $content->setName("test");
 $content->setText("blablabla");
-$content->setMemberId(1);
 $content->setSubjectId(1);
 $content->setQuizId(1);
 $id = $content->create($connectionId);

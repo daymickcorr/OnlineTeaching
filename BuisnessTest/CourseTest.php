@@ -15,6 +15,7 @@ echo Course::footer();
 $course->setName("test");
 $course->setLanguageId(1);
 $course->setSubCategoryId(1);
+$course->setMemberId(1);
 $id = $course->create($connectionId);
 
 echo "</br>";
