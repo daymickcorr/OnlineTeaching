@@ -154,7 +154,6 @@ class Course
     }
     
     function findById($connectionId){
-        $idx=0;
         foreach($connectionId->query("select * from course where pk_course_id = $this->id") as $row){
             $course = new Course();
             $course->setId($row["pk_course_id"]);
@@ -162,9 +161,9 @@ class Course
             $course->setLanguageId($row["fk_language_id"]);
             $course->setSubCategoryId($row["fk_subCategory_id"]);
             $course->setMemberId($row["fk_member_id"]);
-            $arr[$idx++]= $course;
+            return $course;
         }
-        return $arr;
+        
     }
 }
 

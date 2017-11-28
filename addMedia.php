@@ -53,28 +53,38 @@ include "navbar.php"; ?>
 					<label>Content:</label>
 					<select name="content" required="required" class="form-control">
 					<?php 
-					   $course = new Course();
-					   $courses = $course->findAll($connectionId);
-				        
-					   $subject = new Subject();
-					   $subjects = $subject->findAll($connectionId);
-					   
 					   $content = new Content();
-					   $contents = $content->findAll($connectionId);
+					   
+					   if(isset($_GET["content"])){
+					       $content->setId($_GET["content"]);
+					       $content = $content->findById($connectionId);
+					       echo "<option value='".$content->getId()."'>".$content->getName()."</option>";
+					   }
+					   else{
+					       
+					       $course = new Course();
+					       $courses = $course->findAll($connectionId);
+				        
+					       $subject = new Subject();
+					       $subjects = $subject->findAll($connectionId);
 					   
 					   
-					   foreach ($courses as $courseElement){
-					       if($courseElement->getMemberId() == $_SESSION["id"]){
-					           foreach ($subjects as $subjectElement){
-					               if ($subjectElement->getCourseId() == $courseElement->getId()){
-					                   foreach ($contents as $contentElement){
-					                       if($contentElement->getSubjectId() == $subjectElement->getId()){
-					                           echo "<option value='".$contentElement->getId()."'>".$contentElement->getName()."</option>";
+					       $contents = $content->findAll($connectionId);
+					   
+					   
+					       foreach ($courses as $courseElement){
+					           if($courseElement->getMemberId() == $_SESSION["id"]){
+					               foreach ($subjects as $subjectElement){
+					                   if ($subjectElement->getCourseId() == $courseElement->getId()){
+					                       foreach ($contents as $contentElement){
+					                           if($contentElement->getSubjectId() == $subjectElement->getId()){
+					                               echo "<option value='".$contentElement->getId()."'>".$contentElement->getName()."</option>";
+					                           }
 					                       }
 					                   }
 					               }
 					           }
-					       }
+					       }  
 					   }
 					?>
 					</select>

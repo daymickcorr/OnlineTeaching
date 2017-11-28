@@ -21,10 +21,17 @@ $id = $course->create($connectionId);
 echo "</br>";
 echo $id;
 
+$course->setId($id);
+$course = $course->findById($connectionId);
+
+echo Course::header();
+    echo $course;
+echo Course::footer();
+/*
 $course->setName("test2");
 $course->updateName($connectionId);
 
 $course->setId($id);
 $course->delete($connectionId);
-
+*/
 ?>

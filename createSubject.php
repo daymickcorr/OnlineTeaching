@@ -7,6 +7,7 @@ include "navbar.php"; ?>
     require_once 'Buisness/Course.cls.php';
 ?>
 
+<form action="creatingSubject.php" method="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -21,17 +22,28 @@ include "navbar.php"; ?>
 			<div class="col-sm-4">
 				<div class="form-group">
 					<label>Course:</label>
-					<select name="course">
+					<select class="form-control" name="course">
 						<?php 
 						   $course = new Course();
-						   $courses = $course->findAll($connectionId);
 						   
-						   foreach($courses as $element){
-						       //echo $_SESSION['id'];
-						       if ($element->getMemberId() == $_SESSION["id"]){
-					               echo "<option value='".$element->getId()."'>".$element->getName()."</option>";
-						       }
-                           }
+						   if(isset($_GET["course"])){
+						          $course->setId($_GET["course"]);
+						          $course = $course->findById($connectionId);
+						          echo "<option value='".$course->getId()."'>".$course->getName()."</option>";
+						          
+						   }
+						   else{
+						   
+						      $courses = $course->findAll($connectionId);
+						   
+						      foreach($courses as $element){
+						           //echo $_SESSION['id'];
+						          if ($element->getMemberId() == $_SESSION["id"]){
+					                   echo "<option value='".$element->getId()."'>".$element->getName()."</option>";
+						          }
+                              }
+						   }
+						   
 					    ?>
 					</select>
 				</div>
@@ -47,4 +59,4 @@ include "navbar.php"; ?>
 			</div>
 		</div>
 	</div>
-
+</form>

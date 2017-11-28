@@ -32,7 +32,9 @@ $media->setContentId($contentId);
 
 $id = $media->create($connectionId);
 
-if(!($id > 0)){ echo "file information has not been uploaded in db";}
+if(!($id > 0)){ echo "file information has not been uploaded in db"; return;}
+
+header('Location: courseManagement.php'); 
 
 
 ?>

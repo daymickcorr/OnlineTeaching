@@ -1,4 +1,67 @@
-<?php include "navbar.php"; ?>
+<?php 
+session_start();
+include "navbar.php"; ?>
+<?php 
+    require_once 'Buisness/dbConfig.php';
+    require_once 'Buisness/Course.cls.php';
+    require_once 'Buisness/Subject.cls.php';
+    require_once 'Buisness/Content.cls.php';
+    require_once 'Buisness/Quiz.cls.php';
+    require_once 'Buisness/Media.cls.php';
+    require_once 'Buisness/Question.cls.php';
+?>
+
+<style>
+#navul ul{
+border-left: 2px solid black;
+border-top: 1px dotted black;
+}
+#nav li{
+   list-style-type: none;
+   cursor:pointer;
+}
+#nav li:before{
+content: "\f055";
+font-family: FontAwesome;
+display: inline-block;
+margin-left: -1.3em; 
+width: 1.3em; 
+
+}
+
+#nav li.plus:before {
+content: "\f056";
+font-family: FontAwesome;
+display: inline-block;
+margin-left: -1.3em; 
+width: 1.3em; 
+}
+
+.hide{
+display:none;
+}
+</style>
+
+<script>
+$( document ).ready(function() {
+	$(".first").parent().find('ul').slideToggle(200);
+	//$(".first").addClass("plus");
+});
+
+
+
+function tree(obj){
+	//alert("test")
+	//alert($(obj).parent().children('ul').index());
+	//var obj2 = $(obj)
+	//var selectedIndex = $(obj).index());
+	$(obj).parent().children('ul').slideToggle(200);
+	//$(obj).parent().children('ul').slideToggle(200);
+	$(obj).toggleClass("plus");
+}
+
+ 
+</script>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -9,15 +72,91 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4">
-			</div>
-			<div class="col-sm-4">
-				<a href="#">create</a>
-				<a href="#">remove</a>
-				<a href="#">update</a>
-				<a href="#">display</a>
-			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-12 ">
+				<div id="navul">
+					<ul id="nav">
+						<?php 
+						  $course = new Course();
+						  $courses = $course->findAll($connectionId);
+						  
+						  $subject = new Subject();
+						  $subjects = $subject->findAll($connectionId);
+						  
+						  $content = new Content();
+						  $contents = $content->findAll($connectionId);
+						  
+						  $media = new Media();
+						  $medias = $media->findAll($connectionId);
+						  
+						  $quiz = new Quiz();
+						  $quizs = $quiz->findAll($connectionId);
+						  
+						  $question = new Question();
+						  $questions = $question->findAll($connectionId);
+						  
+						  
+						  
+						  foreach ($courses as $courseElement){
+						      if($courseElement->getMemberId() == $_SESSION["id"]){
+						          echo "<li class='first' onclick='tree(this)'>".$courseElement->getName()."</li>";
+						          echo "<a href='createCourse.php'> create</a>";
+						          echo "<a href='#'> remove</a>";
+						          echo "<a href='#'> update</a>";
+						          echo "<ul>";
+						          foreach ($subjects as $subjectElement){
+						              if($subjectElement->getCourseId() ==  $courseElement->getId()){
+						                  echo "<li onclick='tree(this)'>".$subjectElement->getName()."</li>";
+						                  echo "<a href='createSubject.php?course=".$courseElement->getId()."'> create</a>";
+						                  echo "<a href='#'> remove</a>";
+						                  echo "<a href='#'> update</a>";
+						                  echo "<ul>";
+						                  foreach ($contents as $contentElement){
+						                      if ($contentElement->getSubjectId() == $subjectElement->getId()){
+						                          echo "<li onclick='tree(this)'>".$contentElement->getName()."</li>";
+						                          echo "<a href='createContent.php?subject=".$subjectElement->getId()."'> create</a>";
+						                          echo "<a href='#'> remove</a>";
+						                          echo "<a href='#'> update</a>";
+						                          echo "<ul>";
+						                          foreach ($medias as $mediaElement){
+						                              if($mediaElement->getContentId() == $contentElement->getId()){
+						                                  echo "<li onclick='tree(this)'>".$mediaElement->getName()."</li>";
+						                                  echo "<a href='addMedia.php?content=".$contentElement->getId()."'> add</a>";
+						                                  echo "<a href='#'> remove</a>";
+						                                  echo "<a href='#'> update</a>";
+						                              }
+						                          }
+						                          echo "</ul>";
+						                          echo "<ul>";
+						                          foreach ($quizs as $quizElement){
+						                              if($quizElement->getId() == $contentElement->getQuizId()){
+						                                  echo "<li onclick='tree(this)'>".$quizElement->getName()."</li>";
+						                                  echo "<a href='createQuiz.php".$contentElement->getId()."'> create</a>";
+						                                  echo "<a href='#'> remove</a>";
+						                                  echo "<a href='#'> update</a>";
+						                                  echo "<ul>";
+						                                      foreach ($questions as $questionElement){
+						                                          if ($questionElement->getQuizId() == $quizElement->getId()){
+						                                              echo "<li onclick='tree(this)'>".$questionElement->getQuestion()."</li>";
+						                                              echo "<a href='createQuestion.php?quiz=".$quizElement->getId()."'> create</a>";
+						                                              echo "<a href='#'> remove</a>";
+						                                              echo "<a href='#'> update</a>";
+						                                          }
+						                                      }
+						                                  echo "</ul>";
+						                              }
+						                          }
+						                          echo "</ul>";
+						                      }
+						                  }
+						                  echo "</ul>";
+						              }
+						          }
+			                      echo "</ul>";
+						      }
+						  }
+						?>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -7,7 +7,7 @@
     require_once 'Buisness/Category.cls.php';
 ?>
 
-<form action="#" method="get">
+<form action="creatingCourse.php" method="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -40,7 +40,8 @@
 				<div class="form-group">
 					<label>SubCategory:</label>
 					<select class="form-control" name="subCategory">
-					<?php 
+					<?php
+
 					   $subCategory =  new SubCategory();
 					   $category = new Category();
 					   $categories = $category->findAll($connectionId);
@@ -49,7 +50,8 @@
 					       echo "<optgroup label='".$catElement->getName()."'>";
 					       foreach ($subCategories as $subCatElement){
 					           if ($subCatElement->getCategoryId() == $catElement->getId()){
-					               echo "<option value='".$subCatElement->getId() ."|" .$catElement->getId() ."'>".$subCatElement->getName()."</option>";
+					               //echo "<option value='".$subCatElement->getId() ."|" .$catElement->getId() ."'>".$subCatElement->getName()."</option>";
+					               echo "<option value='".$subCatElement->getId()."'>".$subCatElement->getName()."</option>";
 					           }
 					       }
 					       echo "</optgroup>";

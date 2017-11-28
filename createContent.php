@@ -9,6 +9,7 @@ include "navbar.php"; ?>
     require_once 'Buisness/Quiz.cls.php';
 ?>
 
+<form action="creatingContent.php" action="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -27,36 +28,54 @@ include "navbar.php"; ?>
 				</div>
 				<div class="form-group">
 					<label>Text:</label>
-					<textarea class="form-control" rows="5"></textarea>
+					<textarea class="form-control" rows="5" name="contentText"></textarea>
 				</div>
 				<div class="form-group">
 					<label>Subject:</label>
-					<select class="form-control">
+					<select class="form-control" name="contentSubject">
 						<?php 
-						 $course = new Course();
-						 $courses = $course->findAll($connectionId);
-						 
 						 $subject = new Subject();
-						 $subjects = $subject->findAll($connectionId);
+						  
+						 if (isset($_GET["subject"])){
+						      $subject->setId($_GET["subject"]);
+						      $subject = $subject->findById($connectionId);
+						      echo "<option value='".$subject->getId()."'>".$subject->getName()."</option>";
+						 }
+						 else {
 						 
-						 foreach ($courses as $courseElement){
-						     if ($courseElement->getMemberId() == $_SESSION["id"]){
-						         echo "<optgroup label='".$courseElement->getName()."'>";
-						         foreach ($subjects as $subjectElement){
-						             if($courseElement->getId() == $subjectElement->getCourseId()){
-						                 echo "<option value='".$subjectElement->getId()."'>".$subjectElement->getName()."</option>";
-						             }
-						         }
-						         echo "</optgroup>";
-						     }
+						      $course = new Course();
+						      $courses = $course->findAll($connectionId);
+						 
+						 
+						      $subjects = $subject->findAll($connectionId);
+						 
+						      foreach ($courses as $courseElement){
+						          if ($courseElement->getMemberId() == $_SESSION["id"]){
+						              echo "<optgroup label='".$courseElement->getName()."'>";
+						              foreach ($subjects as $subjectElement){
+						                  if($courseElement->getId() == $subjectElement->getCourseId()){
+						                      echo "<option value='".$subjectElement->getId()."'>".$subjectElement->getName()."</option>";
+						                  }
+						              }
+						              echo "</optgroup>";
+						          }
+						      }
 						 }
 						?>
 					</select>
 				</div>
 				<div class="form-group">
 					<label>Quiz:</label>
-					<select class="form-control">
+					<select class="form-control" name="contentQuiz">
 					<?php 
+					if (isset($_GET["subject"])){
+					    $course = new Course();
+					    $courses = $course->findAll($connectionId);
+					    
+					    
+					    $subjects = $subject->findAll($connectionId);
+					}
+					
 					$content = new Content();
 					$contents = $content->findAll($connectionId);
 					
@@ -91,3 +110,4 @@ include "navbar.php"; ?>
 			</div>
 		</div>
 	</div>
+</form>
