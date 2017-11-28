@@ -1,9 +1,16 @@
-<?php include "navbar.php"; ?>
+<?php 
+session_start();
+include "navbar.php"; ?>
 <?php 
     require_once 'Buisness/dbConfig.php';
     require_once 'Buisness/Question.cls.php';
+    require_once 'Buisness/Quiz.cls.php';
+    require_once 'Buisness/Content.cls.php';
+    require_once 'Buisness/Subject.cls.php';
+    require_once 'Buisness/Course.cls.php';
+    require_once 'Buisness/QuestionType.cls.php';
 ?>
-<!-- <form action="creatingQuestion.php" action="get"> -->
+<form action="creatingQuestion.php" action="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -30,13 +37,88 @@
 				</div>
 				<div class="form-group">
 					<label>Quiz:</label>
+					<select class="form-control" name="quiz">
+					<?php 
+					   $quiz = new Quiz();
+					   
+					   if(isset($_GET["quiz"])){
+					       $quiz->setId($_GET["quiz"]);
+					       $quiz = $quiz->findById($connectionId);
+					       echo "<option value='".$quiz->getId()."'>".$quiz->getName()."</option>";
+					   }
+					   else{
+					   
+					       $quizs = $quiz->findAll($connectionId);
+					   
+					       $course = new Course();
+					       $courses = $course->findAll($connectionId);
+					   
+					       $subject = new Subject();
+					       $subjects = $subject->findAll($connectionId);
+					   
+					       $content = new Content();
+					       $contents = $content->findAll($connectionId);
+					   
+					       foreach ($courses as $courseElement){
+					           if($courseElement->getMemberId() == $_SESSION["id"]){
+					               foreach ($subjects as $subjectElement){
+					                   if($subjectElement->getCourseId() == $courseElement->getId()){
+					                       foreach ($contents as $contentElement){
+					                           if($contentElement->getSubjectId() == $subjectElement->getId()){
+					                               foreach ($quizs as $quizElement){
+					                                   if($quizElement->getId() == $contentElement->getQuizId()){
+					                                       echo "<option value='".$quizElement->getId()."'>".$quizElement->getName()."</option>";
+					                                   }
+					                               }
+					                           }
+					                       }
+					                   }
+					               }
+					           }
+					       }
+					   }
+					   
+					?>
+					</select>
 				</div>
 				<div class="form-group">
 					<label>Question Type:</label>
+					<select class="form-control" name="questionType">
+					<?php 
+					   $questionType = new QuestionType();
+					   $questionTypes = $questionType->findAll($connectionId);
+					   
+					   foreach ($questionTypes as $questionTypeElement){
+					       echo "<option value='".$questionTypeElement->getId()."'>".$questionTypeElement->getName()."</option>";
+					   }
+			
+					?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Choice 1:</label>
+					<input type="text" class="form-control" id="questionChoice1" placeholder="Enter Choice 1" name="questionChoice1" />
+				</div>
+				<div class="form-group">
+					<label>Choice 2:</label>
+					<input type="text" class="form-control" id="questionChoice2" placeholder="Enter Choice 2" name="questionChoice2" />
+				</div>
+				<div class="form-group">
+					<label>Choice 3:</label>
+					<input type="text" class="form-control" id="questionChoice3" placeholder="Enter Choice 3" name="questionChoice3" />
+				</div>
+				<div class="form-group">
+					<label>Choice 4:</label>
+					<input type="text" class="form-control" id="questionChoice4" placeholder="Enter Choice 4" name="questionChoice4" />
+				</div>
+				<div>
+					<div class="text-center">
+					<button type="submit" class="btn btn-primary" id="create" >Create</button>
+					</div>
 				</div>
 			</div>
 			<div class="col-sm-4">
 			</div>
 		</div>
 	</div>
-<!-- </form> -->
+</form>

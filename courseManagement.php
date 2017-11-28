@@ -100,28 +100,28 @@ function tree(obj){
 						      if($courseElement->getMemberId() == $_SESSION["id"]){
 						          echo "<li class='first' onclick='tree(this)'>".$courseElement->getName()."</li>";
 						          echo "<a href='createCourse.php'> create</a>";
-						          echo "<a href='#'> remove</a>";
+						          echo "<a href='removingCourse.php?id=".$courseElement->getId()."'> remove</a>";
 						          echo "<a href='#'> update</a>";
 						          echo "<ul>";
 						          foreach ($subjects as $subjectElement){
 						              if($subjectElement->getCourseId() ==  $courseElement->getId()){
 						                  echo "<li onclick='tree(this)'>".$subjectElement->getName()."</li>";
 						                  echo "<a href='createSubject.php?course=".$courseElement->getId()."'> create</a>";
-						                  echo "<a href='#'> remove</a>";
+						                  echo "<a href='removingSuject.php?id=".$subjectElement->getId()."'> remove</a>";
 						                  echo "<a href='#'> update</a>";
 						                  echo "<ul>";
 						                  foreach ($contents as $contentElement){
 						                      if ($contentElement->getSubjectId() == $subjectElement->getId()){
 						                          echo "<li onclick='tree(this)'>".$contentElement->getName()."</li>";
 						                          echo "<a href='createContent.php?subject=".$subjectElement->getId()."'> create</a>";
-						                          echo "<a href='#'> remove</a>";
+						                          echo "<a href='removingContent.php?id=".$contentElement->getId()."'> remove</a>";
 						                          echo "<a href='#'> update</a>";
 						                          echo "<ul>";
 						                          foreach ($medias as $mediaElement){
 						                              if($mediaElement->getContentId() == $contentElement->getId()){
 						                                  echo "<li onclick='tree(this)'>".$mediaElement->getName()."</li>";
 						                                  echo "<a href='addMedia.php?content=".$contentElement->getId()."'> add</a>";
-						                                  echo "<a href='#'> remove</a>";
+						                                  echo "<a href='removingMedia.php?id=".$mediaElement->getId()."'> remove</a>";
 						                                  echo "<a href='#'> update</a>";
 						                              }
 						                          }
@@ -131,14 +131,14 @@ function tree(obj){
 						                              if($quizElement->getId() == $contentElement->getQuizId()){
 						                                  echo "<li onclick='tree(this)'>".$quizElement->getName()."</li>";
 						                                  echo "<a href='createQuiz.php".$contentElement->getId()."'> create</a>";
-						                                  echo "<a href='#'> remove</a>";
+						                                  echo "<a href='removingQuiz?id=".$quizElement->getId()."'> remove</a>";
 						                                  echo "<a href='#'> update</a>";
 						                                  echo "<ul>";
 						                                      foreach ($questions as $questionElement){
 						                                          if ($questionElement->getQuizId() == $quizElement->getId()){
 						                                              echo "<li onclick='tree(this)'>".$questionElement->getQuestion()."</li>";
 						                                              echo "<a href='createQuestion.php?quiz=".$quizElement->getId()."'> create</a>";
-						                                              echo "<a href='#'> remove</a>";
+						                                              echo "<a href='removingQuestion.php?id=".$questionElement->getId()."'> remove</a>";
 						                                              echo "<a href='#'> update</a>";
 						                                          }
 						                                      }

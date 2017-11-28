@@ -23,5 +23,8 @@ $subject->setId($id);
 $subject->setName("test2");
 $subject->updateName($connectionId);
 
-$subject->delete($connectionId);
+$affectedRows = $subject->delete($connectionId);
+
+echo "<br/>";
+echo $affectedRows;
 ?>
