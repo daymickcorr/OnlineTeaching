@@ -4,6 +4,8 @@
     
     $id = $_GET["id"];
     
+    $course = new Course();
+    
     $course->setId($id);
     $affectedRows = $course->delete($connectionId);
     
