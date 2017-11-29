@@ -12,11 +12,11 @@ include "navbar.php"; ?>
 ?>
 
 <style>
-#navul ul{
+#orgView ul, #navul ul{
 border-left: 2px solid black;
 border-top: 1px dotted black;
 }
-#nav li{
+#orgView li, #nav li{
    list-style-type: none;
    cursor:pointer;
 }
@@ -73,7 +73,39 @@ function tree(obj){
 		</div>
 		<div class="row">
 			<div class="col-sm-12 ">
+				<div id="orgView">
+					<h6>New:</h6>
+					<ul>
+						<li>
+						<a href='createCourse.php'> Course</a>
+						<ul>
+							<li>
+							<a href='createSubject.php'> Subject</a>
+							<ul>
+								<li>
+								<a href='createContent.php'> Content</a>
+								<ul>
+									<li>
+									<a href='addMedia.php'> Media</a>
+									</li>
+									<li>
+									<a href='createQuiz.php'> Quiz</a>
+									<ul>
+										<li>
+										<a href='createQuestion.php'> Question </a>
+										</li>
+									</ul>
+									</li>
+								</ul>
+								</li>
+							</ul>
+							</li>
+						</ul>
+						</li>
+					</ul>
+				</div>
 				<div id="navul">
+					<h6>Existing:</h6>
 					<ul id="nav">
 						<?php 
 						  $course = new Course();
