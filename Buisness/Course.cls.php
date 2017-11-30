@@ -141,7 +141,7 @@ class Course
     
     function findAll($connectionId){
         $idx=0;
-        foreach($connectionId->query("select * from course") as $row){
+        foreach($connectionId->query("select * from course ORDER BY pk_course_id desc") as $row){
             $course = new Course();
             $course->setId($row["pk_course_id"]);
             $course->setName($row["course_name"]);
