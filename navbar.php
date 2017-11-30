@@ -135,11 +135,11 @@
 					</li>
 					<li class="nav-item before-login"><a class="nav-link" data-toggle="modal" href="#loginModal"><span class="fa fa-sign-in"></span> Login</a></li>
       				<li class="nav-item before-login"><a class="nav-link" href="signUp.php"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-      				<li class="dropdown after-login nodisplay">
+      				<li class="dropdown after-login nodisplay" style="margin-right: 3rem;">
       					<a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-user-circle fa-lg"></i> Profile</a>
       					<ul class="dropdown-menu">
       						<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
-      						<li><a href="createCourse.php"><i class="fa fa-pencil"></i> Create Course</a></li>
+      						<li><a href="courseManagement.php"><i class="fa fa-pencil"></i> Manage Courses</a></li>
       						<li class="dropdown-divider"></li>
       						<li><a href="#" onclick="disconnect()"><i class="fa fa-power-off"></i> Disconnect</a></li>
       					</ul>
