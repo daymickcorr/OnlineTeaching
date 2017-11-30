@@ -133,28 +133,28 @@ function tree(obj){
 						          echo "<li class='first' onclick='tree(this)'>".$courseElement->getName()."</li>";
 						          echo "<a href='createCourse.php'> create</a>";
 						          echo "<a href='removingCourse.php?id=".$courseElement->getId()."'> remove</a>";
-						          echo "<a href='#'> update</a>";
+						          echo "<a href='updateCourse.php?id=".$courseElement->getId()."'> update</a>";
 						          echo "<ul>";
 						          foreach ($subjects as $subjectElement){
 						              if($subjectElement->getCourseId() ==  $courseElement->getId()){
 						                  echo "<li onclick='tree(this)'>".$subjectElement->getName()."</li>";
 						                  echo "<a href='createSubject.php?course=".$courseElement->getId()."'> create</a>";
 						                  echo "<a href='removingSuject.php?id=".$subjectElement->getId()."'> remove</a>";
-						                  echo "<a href='#'> update</a>";
+						                  echo "<a href='updateSubject.php?id=".$subjectElement->getId()."'> update</a>";
 						                  echo "<ul>";
 						                  foreach ($contents as $contentElement){
 						                      if ($contentElement->getSubjectId() == $subjectElement->getId()){
 						                          echo "<li onclick='tree(this)'>".$contentElement->getName()."</li>";
 						                          echo "<a href='createContent.php?subject=".$subjectElement->getId()."'> create</a>";
 						                          echo "<a href='removingContent.php?id=".$contentElement->getId()."'> remove</a>";
-						                          echo "<a href='#'> update</a>";
+						                          echo "<a href='updateContent.php?id=".$contentElement->getId()."'> update</a>";
 						                          echo "<ul>";
 						                          foreach ($medias as $mediaElement){
 						                              if($mediaElement->getContentId() == $contentElement->getId()){
 						                                  echo "<li onclick='tree(this)'>".$mediaElement->getName()."</li>";
 						                                  echo "<a href='addMedia.php?content=".$contentElement->getId()."'> add</a>";
 						                                  echo "<a href='removingMedia.php?id=".$mediaElement->getId()."'> remove</a>";
-						                                  echo "<a href='#'> update</a>";
+						                                  echo "<a href='updateMedia.php?id=".$mediaElement->getId()."'> update</a>";
 						                              }
 						                          }
 						                          echo "</ul>";
@@ -164,14 +164,14 @@ function tree(obj){
 						                                  echo "<li onclick='tree(this)'>".$quizElement->getName()."</li>";
 						                                  echo "<a href='createQuiz.php".$contentElement->getId()."'> create</a>";
 						                                  echo "<a href='removingQuiz?id=".$quizElement->getId()."'> remove</a>";
-						                                  echo "<a href='#'> update</a>";
+						                                  echo "<a href='updateQuiz?id=".$quizElement->getId()."'> update</a>";
 						                                  echo "<ul>";
 						                                      foreach ($questions as $questionElement){
 						                                          if ($questionElement->getQuizId() == $quizElement->getId()){
 						                                              echo "<li onclick='tree(this)'>".$questionElement->getQuestion()."</li>";
 						                                              echo "<a href='createQuestion.php?quiz=".$quizElement->getId()."'> create</a>";
 						                                              echo "<a href='removingQuestion.php?id=".$questionElement->getId()."'> remove</a>";
-						                                              echo "<a href='#'> update</a>";
+						                                              echo "<a href='updateQuestion.php?id=".$questionElement->getId()."'> update</a>";
 						                                          }
 						                                      }
 						                                  echo "</ul>";
