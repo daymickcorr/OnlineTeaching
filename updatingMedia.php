@@ -5,15 +5,32 @@ require_once 'Buisness/Media.cls.php';
 
 $condition = $_FILES["media"]["tmp_name"];
 
+$mediaTypes = array(0 => '.mp4','.webm','.ogg', 1 => '.mp3','.wav','.ogg', 2=> '.gif', '.jpg', '.png', '.svg');
+
 $oldMedia = new Media();
 $oldMedia->setId($_POST["id"]);
 $oldMedia = $oldMedia->findById($connectionId);
+
+
 
 
 if($condition != "") {
     $uploadError = $_FILES["media"]["error"];
     $file = $_FILES["media"]["tmp_name"];
     $type = '.'.pathinfo($_FILES["media"]['name'],PATHINFO_EXTENSION);
+    
+    $flag=false;
+    foreach ($mediaTypes as $key => $val){
+        if ($type == $val){
+            $flag=true;
+        }
+    }
+    
+    
+    if ($flag == false){
+        header('Location: updateMedia.php?id='.$oldMedia->getId().'&flag=false');
+        return;
+    }
 }
 
 $name = $_POST["mediaName"];

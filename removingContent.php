@@ -4,7 +4,7 @@
     
     $content = new Content();
     
-    $content->setId($id);
+    $content->setId($_GET["id"]);
     $affectedRows = $content->delete($connectionId);
     
     if ($affectedRows < 1){

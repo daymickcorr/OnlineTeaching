@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once 'Buisness/dbConfig.php';
     require_once 'Buisness/Quiz.cls.php';
     
@@ -9,6 +10,7 @@
     
     $quiz->setName($name);
     $quiz->setTotal($total);
+    $quiz->setMemberId($_SESSION["id"]);
     
     $id = $quiz->create($connectionId);
     

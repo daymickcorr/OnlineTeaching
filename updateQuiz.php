@@ -31,7 +31,7 @@ $( document ).ready(function() {
 				</div>
 				<div class="form-group">
 					<label>Quiz Total:</label>
-					<input type="number" class="form-control" name="quizTotal" placeholder="Enter quiz total" min="1" required="required"/>
+					<input type="number" class="form-control" id="quizTotal" name="quizTotal" placeholder="Enter quiz total" min="1" required="required"/>
 				</div>
 				<div class="text-center">
 					<button type="submit" class="btn btn-primary" id="create" name="id" value="<?php echo $quiz->getId();?>>">Update</button>

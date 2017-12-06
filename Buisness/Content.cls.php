@@ -113,13 +113,19 @@ class Content
         return $connectionId->lastInsertId();
     }
     
+    function createNoQuiz($connectionId){
+        $affectedRows = $connectionId->exec("insert into content (pk_content_id,content_name,content_text,fk_subject_id)
+        values('','$this->name','$this->text',$this->subjectId);");
+        return $connectionId->lastInsertId();
+    }
+    
     function updateName($connectionId){
-        $affectedRows = $connectionId->exec("update content set content_name = $this->name where pk_content_id = $this->id ");
+        $affectedRows = $connectionId->exec("update content set content_name = '$this->name' where pk_content_id = $this->id ");
         return $affectedRows;
     }
     
     function updateText($connectionId){
-        $affectedRows = $connectionId->exec("update content set content_text = $this->text where pk_content_id = $this->id");
+        $affectedRows = $connectionId->exec("update content set content_text = '$this->text' where pk_content_id = $this->id");
         return $affectedRows;
     }
     
@@ -129,6 +135,7 @@ class Content
     }
     
     function updateQuizId($connectionId){
+        if($this->quizId == "" | $this->quizId == NULL){ $this->quizId = "NULL";}
         $affectedRows = $connectionId->exec("update content set fk_quiz_id = $this->quizId where pk_content_id = $this->id");
         return $affectedRows;
     }

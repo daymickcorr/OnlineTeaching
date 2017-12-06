@@ -3,7 +3,7 @@
     require_once 'Buisness/dbConfig.php';
     require_once 'Buisness/Quiz.cls.php';
 ?>
-<form action="creatingQuiz.php" action="get">
+<form action="creatingQuiz.php" method="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">

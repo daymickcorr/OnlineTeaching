@@ -10,6 +10,8 @@ include "navbar.php"; ?>
 ?>
 
 <script>
+
+
 	function displayValue(obj){
 		document.getElementById("path").innerHTML = obj.value;
 		$("#browse").removeClass("required");
@@ -22,6 +24,13 @@ include "navbar.php"; ?>
 			return false;
 		}
 	}
+
+	$( document ).ready(function() {
+		var flag = "<?php if(isset($_GET['flag'])){echo trim($_GET['flag']);}else{echo 'true';}?>";
+		if (flag == "false"){
+			alert("Invalid Media Type");
+		}
+	});
 </script>
 
 <form method = 'post' action = 'fileUpload.php' enctype = 'multipart/form-data'>
@@ -42,7 +51,7 @@ include "navbar.php"; ?>
 						<span id="path"></span>
 					</div>
     				<label id="browse" class="btn btn-basic form-control" style="background-color: grey; color: white;">
-    					Browse Media <input type="file" style="display: none;" name="media" onchange="displayValue(this)">
+    					Browse Media <input type="file" style="display: none;" name="media" onchange="displayValue(this)" accept=".mp4,.webm,.ogg,.mp3,.wav,.ogg,.gif,.jpg,.png,.svg">
 					</label>
     			</div>
 				<div class="form-group">	
@@ -91,6 +100,9 @@ include "navbar.php"; ?>
 				</div>
 				<div class="text-center">
 						<button type="submit" class="btn btn-primary" id="create" name="submit" value="" onclick="return validateCreation()">Add</button>
+				</div>
+				<div class="text-center">
+					<p style="color: red;">* Note: Uploaded files will not be deleted from your computer.</p>
 				</div>
 			</div>
 			<div class="col-sm-4">

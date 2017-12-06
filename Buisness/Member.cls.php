@@ -199,7 +199,7 @@ class Member
     function findById($connectionId){
         foreach($connectionId->query("select * from member where pk_member_id = $this->id") as $row){
             $member = new Member();
-            $member->setId($row["pk_member_Id"]);
+            $member->setId($row["pk_member_id"]);
             $member->setLastName($row["member_lastName"]);
             $member->setFirstName($row["member_firstName"]);
             $member->setUserName($row["member_userName"]);

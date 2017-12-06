@@ -209,6 +209,12 @@ class Question
         return $connectionId->lastInsertId();
    }
    
+   function createNoMultiple($connectionId){
+       $affectedRows = $connectionId->exec("insert into question (pk_question_id,question_question,question_answer,question_points,fk_quiz_id,fk_questionType_id)
+       values ('','$this->question','$this->answer','$this->points',$this->quizId,$this->questionTypeId)");
+       return $connectionId->lastInsertId();
+   }
+   
    function updateQuestion($connectionId){
         $affectedRows = $connectionId->exec("update question set question_question = '$this->question' where pk_question_id = $this->id ");
         return $affectedRows;

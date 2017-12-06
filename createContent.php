@@ -9,7 +9,7 @@ include "navbar.php"; ?>
     require_once 'Buisness/Quiz.cls.php';
 ?>
 
-<form action="creatingContent.php" action="get">
+<form action="creatingContent.php" method="post">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -67,38 +67,17 @@ include "navbar.php"; ?>
 				<div class="form-group">
 					<label>Quiz:</label>
 					<select class="form-control" name="contentQuiz">
+					<option></option>
 					<?php 
-					if (isset($_GET["subject"])){
-					    $course = new Course();
-					    $courses = $course->findAll($connectionId);
-					    
-					    
-					    $subjects = $subject->findAll($connectionId);
-					}
-					
-					$content = new Content();
-					$contents = $content->findAll($connectionId);
-					
 					$quiz = new Quiz();
 					$quizs = $quiz->findAll($connectionId);
 					
-					foreach ($courses as $courseElement){
-					    if ($courseElement->getMemberId() == $_SESSION["id"]){
-					       foreach ($subjects as $subjectElement){
-					           if($subjectElement->getCourseId() == $courseElement->getId()){
-					               foreach ($contents as $contentElement){
-					                   if($contentElement->getSubjectId() == $subjectElement->getId()){
-					                       foreach ($quizs as $quizElement){
-					                           if($contentElement->getQuizId() == $quizElement->getId()){
-					                               echo "<option value='".$quizElement->getId()."'>".$quizElement->getName()."</option>";
-					                           }
-					                       }   
-					                   }
-					               }
-					           }
-					       }
-					    }
-					}
+                    foreach($quizs as $quizElement){
+                        if($quizElement->getMemberId() == $_SESSION["id"]){
+					       echo "<option value='".$quizElement->getId()."'>".$quizElement->getName()."</option>";
+                        }
+                    }
+                    
 					?>
 					</select>
 				</div>

@@ -66,6 +66,11 @@
 					$("#modalLogin").removeClass('disabled');
 					$(".modal .close").click()
 					
+					var sessionTypeId = $.ajax({type: "GET", url: "sessionType.php", async: false}).responseText;
+					//alert(sessionTypeId);
+					if (sessionTypeId == 1){
+						$("#courseManagement").removeClass('nodisplay');
+		            }
 					//$.get("sessionWrite.php?id="+result);
 					//var msg = $.ajax({type: "GET", url: "sessionRead.php", async: false}).responseText;
 					//alert(msg);
@@ -108,6 +113,12 @@
             	$(".before-login").addClass('nodisplay');
 				$(".after-login").removeClass('nodisplay');
             }
+
+            var sessionTypeId = $.ajax({type: "GET", url: "sessionType.php", async: false}).responseText;
+			//alert(sessionTypeId);
+			if (sessionTypeId == 1){
+				$("#courseManagement").removeClass('nodisplay');
+            }
         }
     </script>
     
@@ -139,7 +150,7 @@
       					<a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-user-circle fa-lg"></i> Profile</a>
       					<ul class="dropdown-menu">
       						<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
-      						<li><a href="courseManagement.php"><i class="fa fa-pencil"></i> Manage Courses</a></li>
+      						<li id="courseManagement" class="nodisplay"><a  href="courseManagement.php"><i class="fa fa-pencil"></i> Manage Courses</a></li>
       						<li class="dropdown-divider"></li>
       						<li><a href="#" onclick="disconnect()"><i class="fa fa-power-off"></i> Disconnect</a></li>
       					</ul>

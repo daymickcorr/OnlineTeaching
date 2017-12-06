@@ -15,13 +15,13 @@ include "navbar.php"; ?>
 
 <script>
 $( document ).ready(function() {
-	document.getElementById("contentName").value = "<?php echo trim($content->getName());?>";
-	document.getElementById("contentText").value = "<?php echo trim($content->getText());?>";
+	document.getElementById("contentName").value = "<?php echo trim($cContent->getName());?>";
+	document.getElementById("contentText").value = "<?php echo trim($cContent->getText());?>";
 	
 });
 </script>
 
-<form action="creatingContent.php" action="get">
+<form action="updatingContent.php" method="post">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -40,7 +40,7 @@ $( document ).ready(function() {
 				</div>
 				<div class="form-group">
 					<label>Text:</label>
-					<textarea class="form-control" rows="5" name="contentText"></textarea>
+					<textarea class="form-control" rows="5" id="contentText" name="contentText"></textarea>
 				</div>
 				<div class="form-group">
 					<label>Subject:</label>
@@ -71,31 +71,18 @@ $( document ).ready(function() {
 				<div class="form-group">
 					<label>Quiz:</label>
 					<select class="form-control" name="contentQuiz">
+					<option></option>
 					<?php 
-					
-					$content = new Content();
-					$contents = $content->findAll($connectionId);
 					
 					$quiz = new Quiz();
 					$quizs = $quiz->findAll($connectionId);
-					
-					foreach ($courses as $courseElement){
-					    if ($courseElement->getMemberId() == $_SESSION["id"]){
-					       foreach ($subjects as $subjectElement){
-					           if($subjectElement->getCourseId() == $courseElement->getId()){
-					               foreach ($contents as $contentElement){
-					                   if($contentElement->getSubjectId() == $subjectElement->getId()){
-					                       foreach ($quizs as $quizElement){
-					                           if($contentElement->getQuizId() == $quizElement->getId()){
-					                               echo "<option value='".$quizElement->getId()."' ".(($quizElement->getId() == $cContent->getSubjectId())?'selected="selected"':'').">".$quizElement->getName()."</option>";
-					                           }
-					                       }   
-					                   }
-					               }
-					           }
-					       }
-					    }
-					}
+
+                       foreach ($quizs as $quizElement){
+                           if($quizElement->getMemberId() == $_SESSION["id"]){
+                               echo "<option value='".$quizElement->getId()."' ".(($quizElement->getId() == $cContent->getSubjectId())?'selected="selected"':'').">".$quizElement->getName()."</option>";
+                           }
+                       }   
+					                  
 					?>
 					</select>
 				</div>

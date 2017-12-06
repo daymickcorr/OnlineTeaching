@@ -25,7 +25,7 @@ $( document ).ready(function() {
 	document.getElementById("questionChoice4").value = "<?php echo trim($question->getChoix4());?>";
 });
 </script>
-<form action="updatingQuestion.php" action="get">
+<form action="updatingQuestion.php" method="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">

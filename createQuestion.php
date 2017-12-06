@@ -10,7 +10,27 @@ include "navbar.php"; ?>
     require_once 'Buisness/Course.cls.php';
     require_once 'Buisness/QuestionType.cls.php';
 ?>
-<form action="creatingQuestion.php" action="get">
+
+<style>
+    .nodisplay{
+        	display: none;
+        }
+</style>
+
+<script>
+	function Choice(obj){
+    	if (obj.value == 1 || obj.value == 4){
+    			$("#choice").removeClass("nodisplay");
+    			$("#questionChoice1").attr("required");
+    		}
+    	else{
+    		$("#choice").addClass("nodisplay");
+    		$("#questionChoice1").removeAttr("required");
+    	}
+	}
+</script>
+
+<form action="creatingQuestion.php" method="get">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-12 text-center">
@@ -49,33 +69,13 @@ include "navbar.php"; ?>
 					   else{
 					   
 					       $quizs = $quiz->findAll($connectionId);
-					   
-					       $course = new Course();
-					       $courses = $course->findAll($connectionId);
-					   
-					       $subject = new Subject();
-					       $subjects = $subject->findAll($connectionId);
-					   
-					       $content = new Content();
-					       $contents = $content->findAll($connectionId);
-					   
-					       foreach ($courses as $courseElement){
-					           if($courseElement->getMemberId() == $_SESSION["id"]){
-					               foreach ($subjects as $subjectElement){
-					                   if($subjectElement->getCourseId() == $courseElement->getId()){
-					                       foreach ($contents as $contentElement){
-					                           if($contentElement->getSubjectId() == $subjectElement->getId()){
-					                               foreach ($quizs as $quizElement){
-					                                   if($quizElement->getId() == $contentElement->getQuizId()){
-					                                       echo "<option value='".$quizElement->getId()."'>".$quizElement->getName()."</option>";
-					                                   }
-					                               }
-					                           }
-					                       }
-					                   }
-					               }
-					           }
-					       }
+					  
+                           foreach ($quizs as $quizElement){
+                               if($quizElement->getMemberId() == $_SESSION["id"]){
+                                   echo "<option value='".$quizElement->getId()."'>".$quizElement->getName()."</option>";
+                               }
+                           }
+					                           
 					   }
 					   
 					?>
@@ -83,7 +83,7 @@ include "navbar.php"; ?>
 				</div>
 				<div class="form-group">
 					<label>Question Type:</label>
-					<select class="form-control" name="questionType">
+					<select class="form-control" name="questionType" onchange="Choice(this)">
 					<?php 
 					   $questionType = new QuestionType();
 					   $questionTypes = $questionType->findAll($connectionId);
@@ -95,27 +95,29 @@ include "navbar.php"; ?>
 					?>
 					</select>
 				</div>
-				<div class="form-group">
-					<label>Choice 1:</label>
-					<input type="text" class="form-control" id="questionChoice1" placeholder="Enter Choice 1" name="questionChoice1" />
-				</div>
-				<div class="form-group">
-					<label>Choice 2:</label>
-					<input type="text" class="form-control" id="questionChoice2" placeholder="Enter Choice 2" name="questionChoice2" />
-				</div>
-				<div class="form-group">
-					<label>Choice 3:</label>
-					<input type="text" class="form-control" id="questionChoice3" placeholder="Enter Choice 3" name="questionChoice3" />
-				</div>
-				<div class="form-group">
-					<label>Choice 4:</label>
-					<input type="text" class="form-control" id="questionChoice4" placeholder="Enter Choice 4" name="questionChoice4" />
+				<div id="choice">
+    				<div class="form-group">
+    					<label>Choice 1:</label>
+    					<input type="text" class="form-control" id="questionChoice1" placeholder="Enter Choice 1" name="questionChoice1" required="required" />
+    				</div>
+    				<div class="form-group">
+    					<label>Choice 2:</label>
+    					<input type="text" class="form-control" id="questionChoice2" placeholder="Enter Choice 2" name="questionChoice2" />
+    				</div>
+    				<div class="form-group">
+    					<label>Choice 3:</label>
+    					<input type="text" class="form-control" id="questionChoice3" placeholder="Enter Choice 3" name="questionChoice3" />
+    				</div>
+    				<div class="form-group">
+    					<label>Choice 4:</label>
+    					<input type="text" class="form-control" id="questionChoice4" placeholder="Enter Choice 4" name="questionChoice4" />
+    				</div>
 				</div>
 				<div>
-					<div class="text-center">
-					<button type="submit" class="btn btn-primary" id="create" >Create</button>
-					</div>
-				</div>
+    				<div class="text-center">
+    				<button type="submit" class="btn btn-primary" id="create" >Create</button>
+    				</div>
+    			</div>
 			</div>
 			<div class="col-sm-4">
 			</div>
