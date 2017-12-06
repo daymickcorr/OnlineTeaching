@@ -2,7 +2,9 @@
 require_once 'Buisness/dbConfig.php';
 require_once 'Buisness/Question.cls.php';
 
-$answer = $_GET["questionAnswer"];
+$val = $_GET["questionAnswer"];
+$answer = strtolower($val);
+
 $choix1 = $_GET["questionChoice1"];
 $choix2 = $_GET["questionChoice2"];
 $choix3 = $_GET["questionChoice3"];

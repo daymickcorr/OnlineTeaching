@@ -27,6 +27,31 @@ include "navbar.php"; ?>
     		$("#choice").addClass("nodisplay");
     		$("#questionChoice1").removeAttr("required");
     	}
+    	if(obj.value == 2){
+			$("#2").removeClass("nodisplay");
+			$("#2 > input").attr("disabled",false);
+			$("#5").addClass("nodisplay");
+			$("#5 > input:hidden").attr("disabled",true);
+			$("#answer").addClass("nodisplay");
+			$("#answer > input:hidden").attr("disabled",true);
+        }
+    	else if(obj.value == 5){
+            $("#5").removeClass("nodisplay");
+            $("#5 > input").attr("disabled",false);
+            $("#2").addClass("nodisplay");
+            $("#2 > input:hidden").attr("disabled", true);
+        	$("#answer").addClass("nodisplay");
+        	$("#answer > input:hidden").attr("disabled", true);
+        }
+        else{
+    		$("#2").addClass("nodisplay");
+    		$("#2 > input").attr("disabled",false);
+        	$("#5").addClass("nodisplay");
+        	$("#5 > input:hidden").attr("disabled", true);
+        	$("#answer").removeClass("nodisplay");
+        	$("#answer > input:hidden").attr("disabled", true);
+        }
+    	
 	}
 </script>
 
@@ -44,16 +69,39 @@ include "navbar.php"; ?>
 			</div>
 			<div class="col-sm-4">
 				<div class="form-group">
+					<label>Question Type:</label>
+					<select class="form-control" name="questionType" onchange="Choice(this)">
+					<?php 
+					   $questionType = new QuestionType();
+					   $questionTypes = $questionType->findAll($connectionId);
+					   
+					   foreach ($questionTypes as $questionTypeElement){
+					       echo "<option value='".$questionTypeElement->getId()."'>".$questionTypeElement->getName()."</option>";
+					   }
+			
+					?>
+					</select>
+				</div>
+				<div class="form-group">
 					<label>Question:</label>
 					<input type="text" class="form-control" id="questionQuestion" placeholder="Enter question text" name="questionQuestion" required="required"/>
 				</div>
 				<div class="form-group">
-					<label>Answer:</label>
-					<input type="text" class="form-control" id="questionAnswer" placeholder="Enter Answer text" name="questionAnswer" required="required"/>
+						<label>Answer:</label>
+					<div id="answer">
+						<input type="text" class="form-control" id="questionAnswer" placeholder="Enter Answer text" name="questionAnswer" required="required"/>
+					</div>
+					<div id="2" class="nodisplay"  class="form-control">
+						<input type="radio" name="questionAnswer" value="true" checked="checked" disabled="disabled">True<br/>
+						<input type="radio" name="questionAnswer" value="false" disabled="disabled">False
+					</div>
+					<div id="5" class="nodisplay">
+						<input type="number" class="form-control" name="questionAnswer" placeholder="Enter Number" disabled="disabled" required="required"/>
+					</div>
 				</div>
 				<div class="form-group">
 					<label>Points:</label>
-					<input type="number" class="form-control" id="questionPoints" placeholder="Enter question Points" name="questionPoints" required="required"/>
+					<input type="number" class="form-control" id="questionPoints" placeholder="Enter question Points" name="questionPoints" required="required" min="1"/>
 				</div>
 				<div class="form-group">
 					<label>Quiz:</label>
@@ -81,20 +129,7 @@ include "navbar.php"; ?>
 					?>
 					</select>
 				</div>
-				<div class="form-group">
-					<label>Question Type:</label>
-					<select class="form-control" name="questionType" onchange="Choice(this)">
-					<?php 
-					   $questionType = new QuestionType();
-					   $questionTypes = $questionType->findAll($connectionId);
-					   
-					   foreach ($questionTypes as $questionTypeElement){
-					       echo "<option value='".$questionTypeElement->getId()."'>".$questionTypeElement->getName()."</option>";
-					   }
-			
-					?>
-					</select>
-				</div>
+				
 				<div id="choice">
     				<div class="form-group">
     					<label>Choice 1:</label>

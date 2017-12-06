@@ -9,9 +9,8 @@ $oldContent = $oldContent->findById($connectionId);
 
 $name = $_POST["contentName"];
 $subjectId = $_POST["contentSubject"];
-$text = $_POST["contentText"];
+$text = addslashes($_POST["contentText"]);
 $quizId = $_POST["contentQuiz"];
-
 
 $content = new Content();
 $content->setId($_POST["id"]);

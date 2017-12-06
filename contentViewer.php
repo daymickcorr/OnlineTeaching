@@ -1,4 +1,6 @@
-<?php include "navbar.php"; ?>
+<?php 
+session_start();
+include "navbar.php"; ?>
 
 <?php 
     require_once 'Buisness/dbConfig.php';
@@ -8,6 +10,8 @@
     require_once 'Buisness/Media.cls.php';
     require_once 'Buisness/Quiz.cls.php';
 
+    
+    $_SESSION["quizPage"] = $_GET["contentId"];
 ?>
 
 <?php 
@@ -119,6 +123,7 @@
 				        $quiz = $quiz->findById($connectionId);
 				        echo "<b><label>Available Quiz:</label></b><br/>";
 				        echo "<a href='quizViewer.php?id=".$quiz->getId()."'>".$quiz->getName()."</a>";
+				        
 				    }
 				?>
 			</div>
@@ -128,7 +133,33 @@
 				<?php 
 				    if (($position)+1 == $total ){
 				        //finished all content of this subject
+				        $subjects = $subject->findAll($connectionId);
+				        $arrIdx = 0;
+				        foreach ($subjects as $subjectElement){
+				            if ($subjectElement->getCourseId() == $course->getId()){
+				                $subArr[$arrIdx++] = $subjectElement->getId();
+				            }
+				        }
 				        
+				        $subPosition = array_search($subject->getId(), $subArr);
+				        $subTotal = count($subArr);
+				        
+				        if(($subPosition)+1 == $subTotal){
+				            echo "<h5><a style='text-decoration: none; color: inherit;' href='index.php'>End Of Course >></a></h5>";
+				        }
+				        else{
+				            //next subject content
+				            $subject->setId($subArr[($subPosition)+1]);
+				            $subject = $subject->findById($connectionId);
+				            
+				            foreach ($contents as $contentElement){
+				                if ($contentElement->getSubjectId() == $subject->getId()){
+				                    echo "<h5><a style='text-decoration: none; color: inherit;' href='contentViewer.php?contentId=".$contentElement->getId()."'>Next Subject >></a></h5>";
+				                    break;
+				                }
+				            } 
+				            
+				        }
 				    }
 				    else{
 				        //next content 
