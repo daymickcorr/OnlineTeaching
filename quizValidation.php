@@ -9,7 +9,7 @@ $questionByMember = new QuestionByMember();
 $questionByMembers = $questionByMember->findAll($connectionId);
 
 foreach ($_GET as $key => $value) { 
-    $value = strtolower($value);
+    $value = mb_strtolower($value,'UTF-8');
     $flag=false;
     foreach ($questionByMembers as $questionByMemberElement){
         if ($questionByMemberElement->getMemberId() == $_SESSION["id"] && $questionByMemberElement->getQuestionId() == $key){

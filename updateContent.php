@@ -16,7 +16,7 @@ include "navbar.php"; ?>
 <script>
 $( document ).ready(function() {
 	document.getElementById("contentName").value = "<?php echo trim($cContent->getName());?>";
-	document.getElementById("contentText").value = "<?php echo trim($cContent->getText());?>";
+	document.getElementById("contentText").value = "<?php echo trim(addslashes($cContent->getText()));?>";
 	
 });
 </script>

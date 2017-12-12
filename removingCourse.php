@@ -10,7 +10,7 @@
     $affectedRows = $course->delete($connectionId);
     
     if($affectedRows < 1){
-        echo "course removal failed";
+        echo "course removal failed! Make sure their is no associated subElements ";
         return ;
     }
     

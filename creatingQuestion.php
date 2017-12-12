@@ -3,12 +3,17 @@ require_once 'Buisness/dbConfig.php';
 require_once 'Buisness/Question.cls.php';
 
 $val = $_GET["questionAnswer"];
-$answer = strtolower($val);
+$answer = mb_strtolower($val,'UTF-8');
 
-$choix1 = $_GET["questionChoice1"];
-$choix2 = $_GET["questionChoice2"];
-$choix3 = $_GET["questionChoice3"];
-$choix4 = $_GET["questionChoice4"];
+$val1 = $_GET["questionChoice1"];
+$val2 = $_GET["questionChoice2"];
+$val3 = $_GET["questionChoice3"];
+$val4 = $_GET["questionChoice4"];
+
+$choix1 =  mb_strtolower($val1,'UTF-8');
+$choix2 =  mb_strtolower($val2,'UTF-8');
+$choix3 =  mb_strtolower($val3,'UTF-8');
+$choix4 =  mb_strtolower($val4,'UTF-8');
 $points = $_GET["questionPoints"];
 $questionText = $_GET["questionQuestion"];
 $questionTypeId = $_GET["questionType"];

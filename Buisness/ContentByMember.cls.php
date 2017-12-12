@@ -124,7 +124,7 @@ class ContentByMember
             $contentByMember->setDate($row["contentByMember_date"]);
             $contentByMember->setMemberId($row["fk_member_id"]);
             $contentByMember->setContentId($row["fk_content_id"]);
-            $arr[$idx] = $contentByMember;
+            $arr[$idx++] = $contentByMember;
         }
         return $arr;
     }

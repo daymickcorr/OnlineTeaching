@@ -28,6 +28,7 @@ include "navbar.php"; ?>
     		$("#questionChoice1").removeAttr("required");
     	}
     	if(obj.value == 2){
+        	//true or false 
 			$("#2").removeClass("nodisplay");
 			$("#2 > input").attr("disabled",false);
 			$("#5").addClass("nodisplay");
@@ -36,6 +37,7 @@ include "navbar.php"; ?>
 			$("#answer > input:hidden").attr("disabled",true);
         }
     	else if(obj.value == 5){
+        	//numeric
             $("#5").removeClass("nodisplay");
             $("#5 > input").attr("disabled",false);
             $("#2").addClass("nodisplay");
@@ -45,11 +47,11 @@ include "navbar.php"; ?>
         }
         else{
     		$("#2").addClass("nodisplay");
-    		$("#2 > input").attr("disabled",false);
+    		$("#2 > input:hidden").attr("disabled",true);
         	$("#5").addClass("nodisplay");
         	$("#5 > input:hidden").attr("disabled", true);
         	$("#answer").removeClass("nodisplay");
-        	$("#answer > input:hidden").attr("disabled", true);
+        	$("#answer > input").attr("disabled", false);
         }
     	
 	}
@@ -92,8 +94,8 @@ include "navbar.php"; ?>
 						<input type="text" class="form-control" id="questionAnswer" placeholder="Enter Answer text" name="questionAnswer" required="required"/>
 					</div>
 					<div id="2" class="nodisplay"  class="form-control">
-						<input type="radio" name="questionAnswer" value="true" checked="checked" disabled="disabled">True<br/>
-						<input type="radio" name="questionAnswer" value="false" disabled="disabled">False
+						<input type="radio" name="questionAnswer" value="true" checked="checked" disabled="disabled"/>True<br/>
+						<input type="radio" name="questionAnswer" value="false" disabled="disabled"/>False
 					</div>
 					<div id="5" class="nodisplay">
 						<input type="number" class="form-control" name="questionAnswer" placeholder="Enter Number" disabled="disabled" required="required"/>

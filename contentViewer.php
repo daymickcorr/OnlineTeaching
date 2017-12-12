@@ -12,6 +12,36 @@ include "navbar.php"; ?>
 
     
     $_SESSION["quizPage"] = $_GET["contentId"];
+    
+    if (isset($_SESSION["id"])){
+        if ($_SESSION["id"]>0){
+            require_once 'Buisness/ContentByMember.cls.php';
+            $contentByMember = new ContentByMember();
+            
+            $contentByMembers = $contentByMember->findAll($connectionId);
+            
+            $phpdate = strtotime("now");
+            $mysqldate = date( 'Y-m-d H:i:s', $phpdate );
+            
+            $flag = false;
+            foreach ($contentByMembers as $contentByMemberElement){
+                if ($contentByMemberElement->getMemberId() == $_SESSION["id"] && $contentByMemberElement->getContentId() == $_GET["contentId"]){
+                    //you have already seen this page 
+                    $flag = true;
+                    $contentByMemberElement->setDate($mysqldate);
+                    $contentByMemberElement->updateDate($connectionId);
+                }
+            }
+            
+            if(!$flag){
+                $contentByMember->setContentId($_GET["contentId"]);
+                $contentByMember->setDate($mysqldate);
+                $contentByMember->setMemberId($_SESSION["id"]);
+                $contentByMember->create($connectionId);
+            }
+            
+        }
+    }
 ?>
 
 <?php 

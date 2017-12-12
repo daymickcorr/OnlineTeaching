@@ -8,7 +8,7 @@
     $affectedRows = $content->delete($connectionId);
     
     if ($affectedRows < 1){
-        echo "content removal failed";
+        echo "content removal failed! Make sure their is no associated subElements ";
         return;
     }
     

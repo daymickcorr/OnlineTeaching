@@ -54,8 +54,7 @@
         //make cards in responsive grid 
         if($arr[$idx] > 0){
             echo "<a class='card-link' href=courseOverview.php?id=".$element->getId().">";
-            echo "<div class='responsive-card'>";
-            echo "<div class='card'>";
+            echo "<div class='card responsive-card'>";
             
             $subCategory->setId($element->getSubCategoryId());
             $subCategory = $subCategory->findById($connectionId);
@@ -75,7 +74,6 @@
             $category = $category->findById($connectionId);
             echo "<p class='card-text'>".$category->getName()."</p>";
         
-            echo "</div>";
             echo "</div>";
             echo "</div>";
             echo "</div>";

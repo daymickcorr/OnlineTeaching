@@ -121,6 +121,29 @@
             }
         }
     </script>
+    <script>
+    jQuery(document).ready(function($){
+    	$('.card h4').each(function(){
+    	$(this).attr('data-search-term', $(this).text().toLowerCase());
+    	});
+
+    	$('.live-search-box').on('keyup', function(){
+    	var searchTerm = $(this).val().toLowerCase();
+
+    	    $('.card h4').each(function(){
+
+    	        if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+    	            $(this).parents('.card').removeClass('nodisplay');
+    	        } else {
+    	            $(this).parents('.card').addClass('nodisplay');
+    	        }
+
+    	    });
+
+    	});
+
+    	});
+    </script>
     
 </head>
 <body onload="ifLoggedIn()">
@@ -140,7 +163,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li class="nav-item">
 						<div class="input-group">
-							<input class="form-control" type="search" placeholder="Search">
+							<input class="form-control live-search-box" type="search" placeholder="Search">
 							<span class="input-group-addon"><i class="fa fa-search"></i></span>
 						</div>
 					</li>
@@ -149,7 +172,8 @@
       				<li class="dropdown after-login nodisplay" style="margin-right: 3rem;">
       					<a class="nav-link" data-toggle="dropdown" href="#"><i class="fa fa-user-circle fa-lg"></i> Profile</a>
       					<ul class="dropdown-menu">
-      						<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
+      					<!-- Follow up of done courses not implemented yet -->
+      						<li class="nodisplay"><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
       						<li id="courseManagement" class="nodisplay"><a  href="courseManagement.php"><i class="fa fa-pencil"></i> Manage Courses</a></li>
       						<li class="dropdown-divider"></li>
       						<li><a href="#" onclick="disconnect()"><i class="fa fa-power-off"></i> Disconnect</a></li>

@@ -10,7 +10,7 @@
     $affectedRows = $subject->delete($connectionId);
     
     if($affectedRows < 1) {
-        echo "subject removal failed";
+        echo "subject removal failed! Make sure their is no associated subElements ";
         return;
     }
     
