@@ -1,0 +1,6 @@
+Do not forget to set in php.ini
+
+post_max_size=1000M
+upload_max_filesize=1000M
+
+or you will get undesireable error messages when uploading media or posting content with large text
